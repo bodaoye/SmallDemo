@@ -9,7 +9,7 @@ typedef struct {
 }key_t;
 key_t key1;
 int num = 1;
-void getFindSolu(uint8_t *Head, uint8_t *Tail,key_t *key1) {
+int getFindSolu(uint8_t *Head, uint8_t *Tail,key_t *key1) {
 	/* 将两个光电开关的状态抽象成一个开关状态 */ 
 	if((*Head == 0 && *Tail == 0)) { //两开关都没有被遮挡且没有经历过障碍
 		key1->key = 0;//抽象开关关闭，继续执行
@@ -20,12 +20,17 @@ void getFindSolu(uint8_t *Head, uint8_t *Tail,key_t *key1) {
 	/*对抽象过的开关状态进行扫描 */
 	if(key1->key == 0 && key1->keyflag == 1) {//如果已经经过而且抽象开关再次关闭，停止向前
 		printf("Stop!\n");
+		key1 -> key = 0;
+		key1 -> keyflag = 1;
+		return 1;//切换到下一状态
 	}
 	if(key1->key == 1 && key1->keyflag == 1) {
 		printf("go on\n");
+		return 0;
 	}
 	if(key1->key == 0 && key1->keyflag == 0) {
 		printf("go on\n");
+		return 0;
 	} 
 }
 
